@@ -1,6 +1,5 @@
-# funciones.py
 import sqlite3
-
+import orm
 def conectar_bd():
     conexion = sqlite3.connect('biblioteca_jma_2023.db')
     cursor = conexion.cursor()
