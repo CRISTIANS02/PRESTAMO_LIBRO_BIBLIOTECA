@@ -5,7 +5,7 @@ from funciones import agregar_alumno, obtener_alumnos, agregar_libro, obtener_li
 class InterfazBiblioteca:
     def __init__(self, master):
         self.master = master
-        master.title('Biblioteca JMA 2023')
+        master.title('JMA 2024')
 
         # Sección para datos del alumno
         self.nombre_entry = tk.Entry(master)

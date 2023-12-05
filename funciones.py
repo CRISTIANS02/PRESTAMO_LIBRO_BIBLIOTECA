@@ -1,5 +1,7 @@
 import sqlite3
+from datetime import datetime
 import orm
+
 def conectar_bd():
     conexion = sqlite3.connect('biblioteca_jma_2023.db')
     cursor = conexion.cursor()
@@ -20,6 +22,8 @@ def conectar_bd():
             autor TEXT,
             prestado BOOLEAN,
             id_alumno INTEGER,
+            fecha_prestamo TEXT,
+            fecha_devolucion TEXT,
             FOREIGN KEY (id_alumno) REFERENCES alumnos (id)
         )
     ''')
@@ -58,12 +62,16 @@ def obtener_libros():
 
 def prestar_libro(id_libro, id_alumno):
     conexion, cursor = conectar_bd()
-    cursor.execute('UPDATE libros SET prestado = ?, id_alumno = ? WHERE id = ?', (True, id_alumno, id_libro))
+    fecha_prestamo = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    cursor.execute('UPDATE libros SET prestado = ?, id_alumno = ?, fecha_prestamo = ? WHERE id = ?', (True, id_alumno, fecha_prestamo, id_libro))
     conexion.commit()
     cerrar_bd(conexion)
 
 def devolver_libro(id_libro):
     conexion, cursor = conectar_bd()
-    cursor.execute('UPDATE libros SET prestado = ?, id_alumno = NULL WHERE id = ?', (False, id_libro))
+    fecha_devolucion = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    cursor.execute('UPDATE libros SET prestado = ?, id_alumno = NULL, fecha_devolucion = ? WHERE id = ?', (False, fecha_devolucion, id_libro))
     conexion.commit()
     cerrar_bd(conexion)
+
+
