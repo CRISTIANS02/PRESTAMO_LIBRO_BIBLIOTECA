@@ -1,4 +1,4 @@
-# main.py
+## main.py
 from interfaz import InterfazBiblioteca
 import tkinter as tk
 
